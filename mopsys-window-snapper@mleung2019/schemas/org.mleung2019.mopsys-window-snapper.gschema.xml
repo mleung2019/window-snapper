@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="org.mleung.mopsys-window-snapper" path="/org/mleung/mopsys-window-snapper/">
+  <schema id="org.mleung2019.mopsys-window-snapper" path="/org/mleung2019/mopsys-window-snapper/">
     <key name="snap-full" type="as">
       <default>["&lt;Super&gt;&lt;Alt&gt;Left"]</default>
       <summary>Maximize window</summary>

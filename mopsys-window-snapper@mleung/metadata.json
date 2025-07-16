@@ -1,6 +1,0 @@
-{
-  "cinnamon-version": ["6.4"],
-  "uuid": "mopsys-window-snapper@mleung",
-  "name": "Mopsy's Window Snapper",
-  "description": "A very simple window snapping extension for Cinnamon"
-}

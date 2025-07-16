@@ -36,9 +36,14 @@ function init() {
     Gio.SettingsSchemaSource.get_default(),
     false
   );
-  const schema = schemaSource.lookup("org.mleung.mopsys-window-snapper", true);
+  const schema = schemaSource.lookup(
+    "org.mleung2019.mopsys-window-snapper",
+    true
+  );
   if (!schema) {
-    throw new Error("Failed to load schema org.mleung.mopsys-window-snapper");
+    throw new Error(
+      "Failed to load schema org.mleung2019.mopsys-window-snapper"
+    );
   }
   settings = new Gio.Settings({ settings_schema: schema });
 }
