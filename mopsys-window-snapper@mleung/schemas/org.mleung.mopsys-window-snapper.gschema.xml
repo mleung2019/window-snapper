@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.mleung.mopsys-window-snapper" path="/org/mleung/mopsys-window-snapper/">
+    <key name="snap-left" type="as">
+      <default>[]</default>
+      <summary>Snap window to the left</summary>
+      <description>Shortcut key to snap current window to the left half of the screen.</description>
+    </key>
+    <key name="snap-right" type="as">
+      <default>[]</default>
+      <summary>Snap window to the right</summary>
+      <description>Shortcut key to snap current window to the right half of the screen.</description>
+    </key>
+    <key name="snap-top-left" type="as">
+      <default>[]</default>
+      <summary>Snap window to the top left</summary>
+      <description>Shortcut key to snap current window to the top left quarter of the screen.</description>
+    </key>
+    <key name="snap-top-right" type="as">
+      <default>[]</default>
+      <summary>Snap window to the top right</summary>
+      <description>Shortcut key to snap current window to the top right quarter of the screen.</description>
+    </key>
+      <key name="snap-bottom-left" type="as">
+      <default>[]</default>
+      <summary>Snap window to the bottom left</summary>
+      <description>Shortcut key to snap current window to the bottom left quarter of the screen.</description>
+    </key>
+    <key name="snap-bottom-right" type="as">
+      <default>[]</default>
+      <summary>Snap window to the bottom right</summary>
+      <description>Shortcut key to snap current window to the bottom right quarter of the screen.</description>
+    </key>
+  </schema>
+</schemalist>
