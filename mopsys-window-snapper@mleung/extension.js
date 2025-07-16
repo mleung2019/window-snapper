@@ -4,6 +4,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 
 const KEYBINDINGS = [
+  { name: "snap-full", topLeft: [0, 0], size: [1, 1] },
   { name: "snap-left", topLeft: [0, 0], size: [0.5, 1] },
   { name: "snap-right", topLeft: [0.5, 0], size: [0.5, 1] },
   { name: "snap-top-left", topLeft: [0, 0], size: [0.5, 0.5] },
@@ -21,8 +22,8 @@ function moveWindow([xLeft, yTop], [width, height]) {
   let monitor = win.get_monitor();
   let workArea = Main.layoutManager.getWorkAreaForMonitor(monitor);
 
-  const newX = workArea.width * xLeft;
-  const newY = workArea.height * yTop;
+  const newX = workArea.x + workArea.width * xLeft;
+  const newY = workArea.y + workArea.height * yTop;
   const newW = workArea.width * width;
   const newH = workArea.height * height;
 
@@ -30,13 +31,16 @@ function moveWindow([xLeft, yTop], [width, height]) {
 }
 
 function init() {
-  settings = new Gio.Settings({
-    settings_schema: Gio.SettingsSchemaSource.new_from_directory(
-      Me.path + "/schemas",
-      Gio.SettingsSchemaSource.get_default(),
-      false
-    ).lookup("org.yourname.mytiler", true),
-  });
+  const schemaSource = Gio.SettingsSchemaSource.new_from_directory(
+    Me.path + "/schemas",
+    Gio.SettingsSchemaSource.get_default(),
+    false
+  );
+  const schema = schemaSource.lookup("org.mleung.mopsys-window-snapper", true);
+  if (!schema) {
+    throw new Error("Failed to load schema org.mleung.mopsys-window-snapper");
+  }
+  settings = new Gio.Settings({ settings_schema: schema });
 }
 
 function enable() {
@@ -46,7 +50,7 @@ function enable() {
       settings,
       Meta.KeyBindingFlags.NONE,
       Shell.ActionMode.ALL,
-      moveWindow(keybind.topLeft, keybind.size)
+      () => moveWindow(keybind.topLeft, keybind.size)
     );
   }
 }
@@ -55,4 +59,5 @@ function disable() {
   for (const keybind of KEYBINDINGS) {
     Main.wm.removeKeybinding(keybind.name);
   }
+  settings = null;
 }
