@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "cinnamon-version": ["6.0"],
+  "uuid": "window-snapper@mleung2019",
+  "name": "Window Snapper",
+  "description": "A very simple window snapping extension for Cinnamon",
+  "url": "https://github.com/mleung2019/window-snapper"
+}
