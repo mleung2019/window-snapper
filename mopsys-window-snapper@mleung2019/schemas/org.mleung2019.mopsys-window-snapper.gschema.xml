@@ -2,7 +2,7 @@
 <schemalist>
   <schema id="org.mleung2019.mopsys-window-snapper" path="/org/mleung2019/mopsys-window-snapper/">
     <key name="snap-full" type="as">
-      <default>["&lt;Super&gt;&lt;Alt&gt;Left"]</default>
+      <default>["&lt;Super&gt;&lt;Alt&gt;Up"]</default>
       <summary>Maximize window</summary>
       <description>Shortcut key to maximize current window.</description>
     </key>

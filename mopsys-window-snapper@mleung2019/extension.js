@@ -1,7 +1,5 @@
-const { Gio, Meta, Shell } = imports.gi;
+const { Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
 
 const KEYBINDINGS = [
   { name: "snap-full", topLeft: [0, 0], size: [1, 1] },
@@ -16,23 +14,33 @@ const KEYBINDINGS = [
 let settings;
 
 function moveWindow([xLeft, yTop], [width, height]) {
-  let win = global.display.get_focus_window();
-  if (!win) return;
+  try {
+    let win = global.display.get_focus_window();
+    if (!win) {
+      global.log("No focused window");
+      return;
+    }
 
-  let monitor = win.get_monitor();
-  let workArea = Main.layoutManager.getWorkAreaForMonitor(monitor);
+    win.unmaximize(Meta.MaximizeFlags.BOTH);
 
-  const newX = workArea.x + workArea.width * xLeft;
-  const newY = workArea.y + workArea.height * yTop;
-  const newW = workArea.width * width;
-  const newH = workArea.height * height;
+    let monitorIndex = win.get_monitor();
+    let workArea = Main.layoutManager.monitors[monitorIndex];
 
-  win.move_resize_frame(false, newX, newY, newW, newH);
+    const newX = workArea.x + workArea.width * xLeft;
+    const newY = workArea.y + workArea.height * yTop;
+    const newW = workArea.width * width;
+    const newH = workArea.height * height;
+
+    global.log(`Moving window to (${newX}, ${newY}) size (${newW}, ${newH})`);
+    win.move_resize_frame(false, newX, newY, newW, newH);
+  } catch (err) {
+    global.log(err);
+  }
 }
 
 function init() {
   const schemaSource = Gio.SettingsSchemaSource.new_from_directory(
-    Me.path + "/schemas",
+    "/home/mint/.local/share/cinnamon/extensions/mopsys-window-snapper@mleung2019/schemas",
     Gio.SettingsSchemaSource.get_default(),
     false
   );
@@ -40,29 +48,26 @@ function init() {
     "org.mleung2019.mopsys-window-snapper",
     true
   );
-  if (!schema) {
-    throw new Error(
-      "Failed to load schema org.mleung2019.mopsys-window-snapper"
-    );
-  }
   settings = new Gio.Settings({ settings_schema: schema });
 }
 
 function enable() {
   for (const keybind of KEYBINDINGS) {
-    Main.wm.addKeybinding(
+    global.display.add_keybinding(
       keybind.name,
       settings,
       Meta.KeyBindingFlags.NONE,
-      Shell.ActionMode.ALL,
-      () => moveWindow(keybind.topLeft, keybind.size)
+      () => {
+        global.log(keybind.name);
+        moveWindow(keybind.topLeft, keybind.size);
+      }
     );
   }
 }
 
 function disable() {
   for (const keybind of KEYBINDINGS) {
-    Main.wm.removeKeybinding(keybind.name);
+    global.display.remove_keybinding(keybind.name);
   }
   settings = null;
 }
