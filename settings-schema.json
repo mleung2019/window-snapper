@@ -1,37 +1,42 @@
 {
+  "keybinding-header": {
+    "type": "header",
+    "description": "Window snap keybindings"
+  },
+
   "snap-full": {
     "type": "keybinding",
-    "default": ["<Super><Alt>Up"],
-    "description": "Snap window to full screen"
+    "default": "<Super><Alt>Up",
+    "description": "Snap window to full screen (doesn't maximize)"
   },
   "snap-left": {
     "type": "keybinding",
-    "default": ["<Super><Alt>Left"],
+    "default": "<Super><Alt>Left",
     "description": "Snap window to left half"
   },
   "snap-right": {
     "type": "keybinding",
-    "default": ["<Super><Alt>Right"],
+    "default": "<Super><Alt>Right",
     "description": "Snap window to right half"
   },
   "snap-top-left": {
     "type": "keybinding",
-    "default": ["<Super><Alt>u"],
+    "default": "<Super><Alt>u",
     "description": "Snap window to top left quarter"
   },
   "snap-top-right": {
     "type": "keybinding",
-    "default": ["<Super><Alt>i"],
+    "default": "<Super><Alt>i",
     "description": "Snap window to top right quarter"
   },
   "snap-bottom-left": {
     "type": "keybinding",
-    "default": ["<Super><Alt>j"],
+    "default": "<Super><Alt>j",
     "description": "Snap window to bottom left quarter"
   },
   "snap-bottom-right": {
     "type": "keybinding",
-    "default": ["<Super><Alt>k"],
+    "default": "<Super><Alt>k",
     "description": "Snap window to bottom right quarter"
   }
 }

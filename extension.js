@@ -1,4 +1,7 @@
-const { Gio, Meta } = imports.gi;
+const Settings = imports.ui.settings;
+const SignalManager = imports.misc.signalManager;
+const Lang = imports.lang;
+const { Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const KEYBINDINGS = [
@@ -10,8 +13,6 @@ const KEYBINDINGS = [
   { name: "snap-bottom-left", topLeft: [0, 0.5], size: [0.5, 0.5] },
   { name: "snap-bottom-right", topLeft: [0.5, 0.5], size: [0.5, 0.5] },
 ];
-
-let settings;
 
 function moveWindow([xLeft, yTop], [width, height]) {
   let win = global.display.get_focus_window();
@@ -31,35 +32,79 @@ function moveWindow([xLeft, yTop], [width, height]) {
   win.move_resize_frame(false, newX, newY, newW, newH);
 }
 
+class WindowSnapper {
+  constructor(metadata) {
+    this.metadata = metadata;
+  }
+
+  enable() {
+    this.settings = new Settings.ExtensionSettings(this, this.metadata.uuid);
+    this.signalManager = new SignalManager.SignalManager(null);
+
+    for (const keybind of KEYBINDINGS) {
+      this.signalManager.connect(
+        this.settings,
+        `changed::${keybind.name}`,
+        this.updateHotkeys,
+        this
+      );
+    }
+
+    this.registerHotkeys();
+  }
+
+  disable() {
+    this.removeHotkeys();
+    this.signalManager.disconnectAllSignals();
+  }
+
+  updateHotkeys() {
+    this.removeHotkeys();
+    this.registerHotkeys();
+  }
+
+  getHotkeySequence(name) {
+    let str = this.settings.getValue(name);
+    if (str && str.length > 0 && str != "::") {
+      return str;
+    }
+    return null;
+  }
+
+  registerHotkeys() {
+    for (const keybind of KEYBINDINGS) {
+      const combo = this.getHotkeySequence(keybind.name);
+      if (combo) {
+        Main.keybindingManager.addHotKey(
+          keybind.name,
+          combo,
+          Lang.bind(this, () => {
+            moveWindow(keybind.topLeft, keybind.size);
+          })
+        );
+      }
+    }
+  }
+
+  removeHotkeys() {
+    for (const keybind of KEYBINDINGS) {
+      Main.keybindingManager.removeHotKey(keybind.name);
+    }
+  }
+}
+
+let extension = null;
 function init(metadata) {
-  const extensionPath = metadata.path;
-
-  const schemaSource = Gio.SettingsSchemaSource.new_from_directory(
-    `${extensionPath}/schemas`,
-    Gio.SettingsSchemaSource.get_default(),
-    false
-  );
-
-  const schema = schemaSource.lookup("org.mleung2019.window-snapper", true);
-  settings = new Gio.Settings({ settings_schema: schema });
+  if (!extension) {
+    extension = new WindowSnapper(metadata);
+  }
 }
 
 function enable() {
-  for (const keybind of KEYBINDINGS) {
-    global.display.add_keybinding(
-      keybind.name,
-      settings,
-      Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
-      () => {
-        moveWindow(keybind.topLeft, keybind.size);
-      }
-    );
-  }
+  extension.enable();
 }
 
 function disable() {
-  for (const keybind of KEYBINDINGS) {
-    global.display.remove_keybinding(keybind.name);
-  }
-  settings = null;
+  extension.disable();
+  extension = null;
 }
