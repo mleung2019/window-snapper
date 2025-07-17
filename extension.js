@@ -1,8 +1,9 @@
 const Settings = imports.ui.settings;
 const SignalManager = imports.misc.signalManager;
 const Lang = imports.lang;
-const { Meta } = imports.gi;
+const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
+const Panel = imports.ui.panel;
 
 const KEYBINDINGS = [
   { name: "snap-full", topLeft: [0, 0], size: [1, 1] },
@@ -22,14 +23,47 @@ function moveWindow([xLeft, yTop], [width, height]) {
   win.unmaximize(Meta.MaximizeFlags.BOTH);
 
   let monitorIndex = win.get_monitor();
-  let workArea = Main.layoutManager.monitors[monitorIndex];
+  let monitor = Main.layoutManager.monitors[monitorIndex];
+  const [screenLeft, screenTop, screenWidth, screenHeight] =
+    getUsableScreenArea(monitor);
 
-  const newX = workArea.x + workArea.width * xLeft;
-  const newY = workArea.y + workArea.height * yTop;
-  const newW = workArea.width * width;
-  const newH = workArea.height * height;
+  const newX = screenLeft + screenWidth * xLeft;
+  const newY = screenTop + screenHeight * yTop;
+  const newW = screenWidth * width;
+  const newH = screenHeight * height;
 
   win.move_resize_frame(false, newX, newY, newW, newH);
+}
+
+// Function from gTile@shuairan
+function getUsableScreenArea(monitor) {
+  let top = monitor.y;
+  let bottom = monitor.y + monitor.height;
+  let left = monitor.x;
+  let right = monitor.x + monitor.width;
+
+  for (let panel of Main.panelManager.getPanelsInMonitor(monitor.index)) {
+    if (!panel.isHideable()) {
+      switch (panel.panelPosition) {
+        case Panel.PanelLoc.top:
+          top += getPanelHeight(panel);
+          break;
+        case Panel.PanelLoc.bottom:
+          bottom -= getPanelHeight(panel);
+          break;
+        case Panel.PanelLoc.left:
+          left += getPanelHeight(panel); // even vertical panels use 'height'
+          break;
+        case Panel.PanelLoc.right:
+          right -= getPanelHeight(panel);
+          break;
+      }
+    }
+  }
+
+  let width = right > left ? right - left : 0;
+  let height = bottom > top ? bottom - top : 0;
+  return [left, top, width, height];
 }
 
 class WindowSnapper {
