@@ -1,8 +1,8 @@
 const Settings = imports.ui.settings;
 const SignalManager = imports.misc.signalManager;
 const Lang = imports.lang;
-const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
+const Meta = imports.gi.Meta;
 const Panel = imports.ui.panel;
 
 const KEYBINDINGS = [
@@ -15,27 +15,11 @@ const KEYBINDINGS = [
   { name: "snap-bottom-right", topLeft: [0.5, 0.5], size: [0.5, 0.5] },
 ];
 
-function moveWindow([xLeft, yTop], [width, height]) {
-  let win = global.display.get_focus_window();
-  if (!win) return;
-
-  // Unmaximize window before snapping
-  win.unmaximize(Meta.MaximizeFlags.BOTH);
-
-  let monitorIndex = win.get_monitor();
-  let monitor = Main.layoutManager.monitors[monitorIndex];
-  const [screenLeft, screenTop, screenWidth, screenHeight] =
-    getUsableScreenArea(monitor);
-
-  const newX = screenLeft + screenWidth * xLeft;
-  const newY = screenTop + screenHeight * yTop;
-  const newW = screenWidth * width;
-  const newH = screenHeight * height;
-
-  win.move_resize_frame(false, newX, newY, newW, newH);
+// Panel functions from gTile@shuairan
+function getPanelHeight(panel) {
+  return panel.height || panel.actor.get_height(); // fallback for old versions of Cinnamon
 }
 
-// Function from gTile@shuairan
 function getUsableScreenArea(monitor) {
   let top = monitor.y;
   let bottom = monitor.y + monitor.height;
@@ -64,6 +48,26 @@ function getUsableScreenArea(monitor) {
   let width = right > left ? right - left : 0;
   let height = bottom > top ? bottom - top : 0;
   return [left, top, width, height];
+}
+
+function moveWindow([xLeft, yTop], [width, height]) {
+  let win = global.display.get_focus_window();
+  if (!win) return;
+
+  // Unmaximize window before snapping
+  win.unmaximize(Meta.MaximizeFlags.BOTH);
+
+  let monitorIndex = win.get_monitor();
+  let monitor = Main.layoutManager.monitors[monitorIndex];
+  const [screenLeft, screenTop, screenWidth, screenHeight] =
+    getUsableScreenArea(monitor);
+
+  const newX = screenLeft + screenWidth * xLeft;
+  const newY = screenTop + screenHeight * yTop;
+  const newW = screenWidth * width;
+  const newH = screenHeight * height;
+
+  win.move_resize_frame(false, newX, newY, newW, newH);
 }
 
 class WindowSnapper {
