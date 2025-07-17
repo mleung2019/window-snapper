@@ -3,8 +3,8 @@
   <schema id="org.mleung2019.window-snapper" path="/org/mleung2019/window-snapper/">
     <key name="snap-full" type="as">
       <default>["&lt;Super&gt;&lt;Alt&gt;Up"]</default>
-      <summary>Maximize window</summary>
-      <description>Shortcut key to maximize current window.</description>
+      <summary>Snap window to full screen</summary>
+      <description>Shortcut key to snap current window to full screen.</description>
     </key>
     <key name="snap-left" type="as">
       <default>["&lt;Super&gt;&lt;Alt&gt;Left"]</default>

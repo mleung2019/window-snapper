@@ -49,7 +49,7 @@ function enable() {
     global.display.add_keybinding(
       keybind.name,
       settings,
-      Meta.KeyBindingFlags.NONE,
+      Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
       () => {
         moveWindow(keybind.topLeft, keybind.size);
       }
