@@ -13,6 +13,9 @@ const KEYBINDINGS = [
   { name: "snap-top-right", topLeft: [0.5, 0], size: [0.5, 0.5] },
   { name: "snap-bottom-left", topLeft: [0, 0.5], size: [0.5, 0.5] },
   { name: "snap-bottom-right", topLeft: [0.5, 0.5], size: [0.5, 0.5] },
+  { name: "snap-left-third", topLeft: [0, 0], size: [0.333, 1] },
+  { name: "snap-middle-third", topLeft: [0.333, 0], size: [0.333, 1] },
+  { name: "snap-right-third", topLeft: [0.666, 0], size: [0.334, 1] },
 ];
 
 // Panel functions from gTile@shuairan
@@ -70,6 +73,7 @@ function moveWindow([xLeft, yTop], [width, height]) {
   win.move_resize_frame(false, newX, newY, newW, newH);
 }
 
+// Adapted from adjacent-windows@klangman
 class WindowSnapper {
   constructor(metadata) {
     this.metadata = metadata;

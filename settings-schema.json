@@ -3,40 +3,54 @@
     "type": "header",
     "description": "Window snap keybindings"
   },
-
   "snap-full": {
     "type": "keybinding",
-    "default": "<Super><Alt>Up",
+    "default": "<Control><Alt>Up",
     "description": "Snap window to full screen (doesn't maximize)"
   },
   "snap-left": {
     "type": "keybinding",
-    "default": "<Super><Alt>Left",
+    "default": "<Control><Alt>Left",
     "description": "Snap window to left half"
   },
   "snap-right": {
     "type": "keybinding",
-    "default": "<Super><Alt>Right",
+    "default": "<Control><Alt>Right",
     "description": "Snap window to right half"
   },
   "snap-top-left": {
     "type": "keybinding",
-    "default": "<Super><Alt>u",
+    "default": "<Control><Alt>u",
     "description": "Snap window to top left quarter"
   },
   "snap-top-right": {
     "type": "keybinding",
-    "default": "<Super><Alt>i",
+    "default": "<Control><Alt>i",
     "description": "Snap window to top right quarter"
   },
   "snap-bottom-left": {
     "type": "keybinding",
-    "default": "<Super><Alt>j",
+    "default": "<Control><Alt>j",
     "description": "Snap window to bottom left quarter"
   },
   "snap-bottom-right": {
     "type": "keybinding",
-    "default": "<Super><Alt>k",
+    "default": "<Control><Alt>k",
     "description": "Snap window to bottom right quarter"
+  },
+  "snap-left-third": {
+    "type": "keybinding",
+    "default": "<Control><Alt>d",
+    "description": "Snap window to left third"
+  },
+  "snap-middle-third": {
+    "type": "keybinding",
+    "default": "<Control><Alt>f",
+    "description": "Snap window to middle third"
+  },
+  "snap-right-third": {
+    "type": "keybinding",
+    "default": "<Control><Alt>g",
+    "description": "Snap window to right third"
   }
 }
