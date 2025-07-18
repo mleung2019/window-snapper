@@ -17,7 +17,9 @@ You can snap a window to:
 
 ## Installation
 
-`git clone https://github.com/mleung2019/window-snapper ~/.local/share/cinnamon/extensions/window-snapper@mleung2019`
+```
+git clone https://github.com/mleung2019/window-snapper ~/.local/share/cinnamon/extensions/window-snapper@mleung2019
+```
 
 ## Credits
 
