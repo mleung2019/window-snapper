@@ -99,10 +99,10 @@ function moveWindow([xLeft, yTop], [width, height]) {
 
   // Ensure windows are flush with the right/bottom edges of the screen
   const newW = almostEqual(xLeft + width, 1.0)
-    ? screenWidth - newX
+    ? Math.ceil(screenWidth - newX)
     : screenWidth * width;
   const newH = almostEqual(yTop + height, 1.0)
-    ? screenHeight - newY
+    ? Math.ceil(screenHeight - newY)
     : screenHeight * height;
 
   win.move_resize_frame(false, newX, newY, newW, newH);
