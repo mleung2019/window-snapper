@@ -14,11 +14,15 @@ You can snap a window to:
 8. Left third
 9. Middle third
 10. Right third
+11. Left two thirds
+12. Right two thirds
 
 ## Installation
 
+Open the Terminal app and run:
+
 ```
-git clone https://github.com/mleung2019/window-snapper ~/.local/share/cinnamon/extensions/window-snapper@mleung2019
+git clone https://github.com/mleung2019/window-snapper.git ~/.local/share/cinnamon/extensions/window-snapper@mleung2019
 ```
 
 ## Credits

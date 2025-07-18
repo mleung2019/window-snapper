@@ -52,5 +52,15 @@
     "type": "keybinding",
     "default": "<Control><Alt>g",
     "description": "Snap window to right third"
+  },
+  "snap-left-two-third": {
+    "type": "keybinding",
+    "default": "<Control><Alt>e",
+    "description": "Snap window to left two thirds"
+  },
+  "snap-right-two-third": {
+    "type": "keybinding",
+    "default": "<Control><Alt>t",
+    "description": "Snap window to right two thirds"
   }
 }

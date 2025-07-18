@@ -16,6 +16,8 @@ const KEYBINDINGS = [
   { name: "snap-left-third", topLeft: [0, 0], size: [0.333, 1] },
   { name: "snap-middle-third", topLeft: [0.333, 0], size: [0.333, 1] },
   { name: "snap-right-third", topLeft: [0.666, 0], size: [0.334, 1] },
+  { name: "snap-left-two-third", topLeft: [0, 0], size: [0.666, 1] },
+  { name: "snap-right-two-third", topLeft: [0.333, 0], size: [0.667, 1] },
 ];
 
 // Panel functions from gTile@shuairan
@@ -53,6 +55,10 @@ function getUsableScreenArea(monitor) {
   return [left, top, width, height];
 }
 
+function almostEqual(a, b, epsilon = Number.EPSILON) {
+  return Math.abs(a - b) < epsilon;
+}
+
 function moveWindow([xLeft, yTop], [width, height]) {
   let win = global.display.get_focus_window();
   if (!win) return;
@@ -67,8 +73,14 @@ function moveWindow([xLeft, yTop], [width, height]) {
 
   const newX = screenLeft + screenWidth * xLeft;
   const newY = screenTop + screenHeight * yTop;
-  const newW = screenWidth * width;
-  const newH = screenHeight * height;
+
+  // Ensure windows are flush with the right/bottom edges of the screen
+  const newW = almostEqual(xLeft + width, 1.0)
+    ? screenWidth - newX
+    : screenWidth * width;
+  const newH = almostEqual(yLeft + height, 1.0)
+    ? screenHeight - newY
+    : screenHeight * height;
 
   win.move_resize_frame(false, newX, newY, newW, newH);
 }
