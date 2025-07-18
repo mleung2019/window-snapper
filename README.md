@@ -16,6 +16,8 @@ You can snap a window to:
 10. Right third
 11. Left two thirds
 12. Right two thirds
+13. Full width
+14. Full height
 
 ## Installation
 

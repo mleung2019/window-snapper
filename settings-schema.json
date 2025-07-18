@@ -5,62 +5,72 @@
   },
   "snap-full": {
     "type": "keybinding",
-    "default": "<Control><Alt>Up",
+    "default": "<Control><Super>Up",
     "description": "Snap window to full screen (doesn't maximize)"
   },
   "snap-left": {
     "type": "keybinding",
-    "default": "<Control><Alt>Left",
+    "default": "<Control><Super>Left",
     "description": "Snap window to left half"
   },
   "snap-right": {
     "type": "keybinding",
-    "default": "<Control><Alt>Right",
+    "default": "<Control><Super>Right",
     "description": "Snap window to right half"
   },
   "snap-top-left": {
     "type": "keybinding",
-    "default": "<Control><Alt>u",
+    "default": "<Control><Super>u",
     "description": "Snap window to top left quarter"
   },
   "snap-top-right": {
     "type": "keybinding",
-    "default": "<Control><Alt>i",
+    "default": "<Control><Super>i",
     "description": "Snap window to top right quarter"
   },
   "snap-bottom-left": {
     "type": "keybinding",
-    "default": "<Control><Alt>j",
+    "default": "<Control><Super>j",
     "description": "Snap window to bottom left quarter"
   },
   "snap-bottom-right": {
     "type": "keybinding",
-    "default": "<Control><Alt>k",
+    "default": "<Control><Super>k",
     "description": "Snap window to bottom right quarter"
   },
   "snap-left-third": {
     "type": "keybinding",
-    "default": "<Control><Alt>d",
+    "default": "<Control><Super>d",
     "description": "Snap window to left third"
   },
   "snap-middle-third": {
     "type": "keybinding",
-    "default": "<Control><Alt>f",
+    "default": "<Control><Super>f",
     "description": "Snap window to middle third"
   },
   "snap-right-third": {
     "type": "keybinding",
-    "default": "<Control><Alt>g",
+    "default": "<Control><Super>g",
     "description": "Snap window to right third"
   },
   "snap-left-two-third": {
     "type": "keybinding",
-    "default": "<Control><Alt>e",
+    "default": "<Control><Super>e",
     "description": "Snap window to left two thirds"
   },
   "snap-right-two-third": {
     "type": "keybinding",
-    "default": "<Control><Alt>t",
+    "default": "<Control><Super>t",
     "description": "Snap window to right two thirds"
+  },
+  "snap-full-horizontal": {
+    "type": "keybinding",
+    "default": "<Control><Super><Shift>Right",
+    "description": "Snap window to full width"
+  },
+  "snap-full-vertical": {
+    "type": "keybinding",
+    "default": "<<Control><Super><Shift>Up",
+    "description": "Snap window to full height"
   }
 }

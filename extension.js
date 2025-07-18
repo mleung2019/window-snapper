@@ -18,6 +18,16 @@ const KEYBINDINGS = [
   { name: "snap-right-third", topLeft: [0.666, 0], size: [0.334, 1] },
   { name: "snap-left-two-third", topLeft: [0, 0], size: [0.666, 1] },
   { name: "snap-right-two-third", topLeft: [0.333, 0], size: [0.667, 1] },
+  {
+    name: "snap-full-horizontal",
+    topLeft: [0, undefined],
+    size: [1, undefined],
+  },
+  {
+    name: "snap-full-vertical",
+    topLeft: [undefined, 0],
+    size: [undefined, 1],
+  },
 ];
 
 // Panel functions from gTile@shuairan
@@ -71,6 +81,19 @@ function moveWindow([xLeft, yTop], [width, height]) {
   const [screenLeft, screenTop, screenWidth, screenHeight] =
     getUsableScreenArea(monitor);
 
+  // Snap window to full width or height
+  if (xLeft === undefined || yTop === undefined) {
+    let rect = win.get_frame_rect();
+    if (width === undefined) {
+      win.move_resize_frame(false, rect.x, 0, rect.width, screenHeight);
+    }
+    if (height === undefined) {
+      win.move_resize_frame(false, 0, rect.y, screenWidth, rect.height);
+    }
+    return;
+  }
+
+  // Snap window to fixed position
   const newX = screenLeft + screenWidth * xLeft;
   const newY = screenTop + screenHeight * yTop;
 
@@ -78,7 +101,7 @@ function moveWindow([xLeft, yTop], [width, height]) {
   const newW = almostEqual(xLeft + width, 1.0)
     ? screenWidth - newX
     : screenWidth * width;
-  const newH = almostEqual(yLeft + height, 1.0)
+  const newH = almostEqual(yTop + height, 1.0)
     ? screenHeight - newY
     : screenHeight * height;
 
