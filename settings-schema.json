@@ -70,7 +70,7 @@
   },
   "snap-full-vertical": {
     "type": "keybinding",
-    "default": "<<Control><Super><Shift>Up",
+    "default": "<Control><Super><Shift>Up",
     "description": "Snap window to full height"
   }
 }
