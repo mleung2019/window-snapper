@@ -6,7 +6,6 @@ const Meta = imports.gi.Meta;
 const Panel = imports.ui.panel;
 
 const KEYBINDINGS = [
-  { name: "snap-full", topLeft: [0, 0], size: [1, 1] },
   { name: "snap-left", topLeft: [0, 0], size: [0.5, 1] },
   { name: "snap-right", topLeft: [0.5, 0], size: [0.5, 1] },
   { name: "snap-top-left", topLeft: [0, 0], size: [0.5, 0.5] },
@@ -18,16 +17,6 @@ const KEYBINDINGS = [
   { name: "snap-right-third", topLeft: [0.666, 0], size: [0.334, 1] },
   { name: "snap-left-two-third", topLeft: [0, 0], size: [0.666, 1] },
   { name: "snap-right-two-third", topLeft: [0.333, 0], size: [0.667, 1] },
-  {
-    name: "snap-full-horizontal",
-    topLeft: [0, undefined],
-    size: [1, undefined],
-  },
-  {
-    name: "snap-full-vertical",
-    topLeft: [undefined, 0],
-    size: [undefined, 1],
-  },
 ];
 
 // Panel functions from gTile@shuairan
@@ -81,28 +70,15 @@ function moveWindow([xLeft, yTop], [width, height]) {
   const [screenLeft, screenTop, screenWidth, screenHeight] =
     getUsableScreenArea(monitor);
 
-  // Snap window to full width or height
-  if (xLeft === undefined || yTop === undefined) {
-    let rect = win.get_frame_rect();
-    if (width === undefined) {
-      win.move_resize_frame(false, rect.x, 0, rect.width, screenHeight);
-    }
-    if (height === undefined) {
-      win.move_resize_frame(false, 0, rect.y, screenWidth, rect.height);
-    }
-    return;
-  }
-
-  // Snap window to fixed position
   const newX = screenLeft + screenWidth * xLeft;
   const newY = screenTop + screenHeight * yTop;
 
   // Ensure windows are flush with the right/bottom edges of the screen
   const newW = almostEqual(xLeft + width, 1.0)
-    ? Math.ceil(screenWidth - newX)
+    ? Math.ceil(screenLeft + screenWidth - newX)
     : screenWidth * width;
   const newH = almostEqual(yTop + height, 1.0)
-    ? Math.ceil(screenHeight - newY)
+    ? Math.ceil(screenTop + screenHeight - newY)
     : screenHeight * height;
 
   win.move_resize_frame(false, newX, newY, newW, newH);

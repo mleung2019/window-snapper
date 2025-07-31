@@ -3,11 +3,6 @@
     "type": "header",
     "description": "Window snap keybindings"
   },
-  "snap-full": {
-    "type": "keybinding",
-    "default": "<Control><Super>Up",
-    "description": "Snap window to full screen (doesn't maximize)"
-  },
   "snap-left": {
     "type": "keybinding",
     "default": "<Control><Super>Left",
@@ -62,15 +57,5 @@
     "type": "keybinding",
     "default": "<Control><Super>t",
     "description": "Snap window to right two thirds"
-  },
-  "snap-full-horizontal": {
-    "type": "keybinding",
-    "default": "<Control><Super><Shift>Right",
-    "description": "Snap window to full width"
-  },
-  "snap-full-vertical": {
-    "type": "keybinding",
-    "default": "<Control><Super><Shift>Up",
-    "description": "Snap window to full height"
   }
 }

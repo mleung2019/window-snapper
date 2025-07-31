@@ -4,20 +4,17 @@ This Cinnamon extension allows you to snap a focused window into place with keyb
 
 You can snap a window to:
 
-1. Full screen (not maximized)
-2. Left half
-3. Right half
-4. Top left quarter
-5. Top right quarter
-6. Bottom left quarter
-7. Bottom right quarter
-8. Left third
-9. Middle third
-10. Right third
-11. Left two thirds
-12. Right two thirds
-13. Full width
-14. Full height
+1. Left half
+2. Right half
+3. Top left quarter
+4. Top right quarter
+5. Bottom left quarter
+6. Bottom right quarter
+7. Left third
+8. Middle third
+9. Right third
+10. Left two thirds
+11. Right two thirds
 
 ## Installation
 
